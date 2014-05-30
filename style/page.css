@@ -1,0 +1,6 @@
+.visualizer {   
+    display: inline-block;
+    border: 1px solid gray;
+    border-radius: 0.2em;
+	cursor: crosshair;
+}

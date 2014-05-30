@@ -1,0 +1,124 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Industrial algorithms exercise work</title>
+        <link rel="stylesheet" href="style/page.css" />
+        <script src="javascript/jquery-1.10.2.js"></script>
+        <script src="javascript/loader.js"></script>
+        <script src="javascript/solver.js"></script>
+        <script src="javascript/visualizer.js"></script>
+        <script>
+	    var onLoadDone = function(fileArr) {
+			//console.log('got files: ', fileArr);
+			
+			var isCleared = false;
+			
+			for (item in fileArr) {
+				var f = fileArr[item];
+				
+				if (f.type === 'TSP') {
+				
+					if (!isCleared) {
+						solvers = [];
+						$('#visualizer').empty();
+						$('#results').empty();
+						isCleared = true;
+					}
+					var viz = new Visualizer(
+						$('#visualizer').append('<div id="viz-' + item + '"></div>').find('#viz-' + item),
+						{
+							points: f.nodeCoords,
+							width: 800,
+							height: 800/*,
+							boundingBox: {
+								top: 71000,
+								left: 12000,
+								bottom: 59000,
+								right: 35000
+							},*/
+						}
+					);
+					viz.draw(false);
+					
+					solvers.push( new TSPSolver(f, {visualizer: viz} ) );
+				
+				}
+				else if ((f.type === 'TOUR') && (typeof(solvers) !== 'undefined')) {
+					for (var item in solvers) {
+						solvers[item].initialize(
+							f,
+							undefined,
+							undefined /* callback */
+						);
+					}
+					
+					$('#results').append(
+						JSON.stringify(
+							{
+								method: 'given',
+								iterations: 0,
+								bestCost: solvers[item].config.bestSolutionCost
+							}
+						) + '<br />'
+					);
+				}
+				else throw('Unable to load file of type ' + f.type + (typeof(solvers) === 'undefined' ? '. No TSP files are loaded.' : '') );
+			}
+			
+			$('#localSearchButton1').off('click').on('click', function(e) {
+				for (var item in solvers) {
+					var method = $('#methodInput1').val();
+					var maxIterations = $('#methodInput2').val() | 0;
+					var maxPlateau = $('#methodInput3').val() | 0;
+					
+					var result = solvers[item].localSearch(method, { maxIterations: maxIterations, maxFails: maxPlateau } );
+					$('#results').append(/*(new Date()).getTime() + ' ' + */ result.method + '\t' + result.iterations + '\t' + result.bestCost + '<br />');
+				}
+			});
+			
+			$('#mstButton1').off('click').on('click', function(e) {
+				for (var item in solvers) {
+					var t1 = new Date();
+					var l = solvers[0].minimalSpanningTree();
+					var t2 = new Date();
+					$('#results').append('Minimal spanning tree solved for "' + solvers[item].tspFile.name + '", it took ' + (t2 - t1) + 'ms.<br />');
+					solvers[item].config.visualizer.setLines(l);
+					solvers[item].config.visualizer.draw();
+				}
+			});
+	    }
+	    
+            $(document).ready(
+                function(e) {
+					addTSPLibLoader($('input[type="file"]'), onLoadDone);
+                }
+            );
+        </script>
+    </head>
+    <body>
+        <h1>Industrial algorithms exercise work</h1>
+        <ul>
+            <li>
+				File Loader<p />
+				Select a TSP file to solve, or existing tour to load (in TSPLib format):<p />
+				<input type="file" name="files[]" multiple />
+            </li>
+            <li>
+				Solver<p />
+				<input type="button" value="Solve MST" id ="mstButton1"/><br />
+				Method:<br />
+				<input type="text" value="2-opt" size="10" id="methodInput1" /><p />
+				Max iterations:<br />
+				<input type="text" value="1000" size="10" id="methodInput2" /><p />
+				Max plateau size:<br />
+				<input type="text" value="100" size="10" id="methodInput3" /><p />
+				
+				<input type="button" value="Solve" id ="localSearchButton1"/><br />
+			</li>
+            <li>Visualizer<p />
+				<div id="visualizer"></div>
+				<div id="results"></div>
+            </li>
+        </ul>
+    </body>
+</html>
