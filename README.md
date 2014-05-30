@@ -7,9 +7,9 @@ TSP and TOUR files, visualizes the data, and searches for an optimal
 solution for traveling salesman problem within the loaded data set.
 Contains implementations for some of the basic local search methods:
 
-* 2-opt
-* Nearest neighbour
-* Double tree algorithm
+* 2-opt ('2-opt')
+* Nearest neighbour ('nn')
+* Double tree algorithm ('doubletree')
 
 As a byproduct of implementing these methods, the solver calculates
 the minimal spanning tree (MST) for the given complete graph.
@@ -28,10 +28,30 @@ a visualizer appears at the bottom of the page. Select the method used
 by the solver on the topmost box. Possible choices are '2-opt', 'nn'
 and 'doubletree'.
 
+For 2-opt, there are are two additional boxes that allow the user to set
+the maximum amount of iterations as well as the maximum number of iterations
+that the search continues without improvement.
+
+In order to visually check that the MST builder works as intended,
+the "Solve MST" button will solve and display the MST for the loaded
+data set. This takes may take a while, though. My old laptop ran
+the fi10639.tsp's MST for a little over four minutes. Smaller data sets
+(< 1000) are done in a blink of an eye.
+
+If needed, a precreated tour can be loaded in TSPLib's TOUR format either
+to provide a starting point or a comparison / optimum for the data set,
+using the same "Browse.." dialog.
+
 Performance of different local search algorithms
 ------------------------------------------------
 
 All of the search algorithms are randomized where possible.
+
+Licence
+-------
+
+Released under MIT licence. Do what you want with it. I did this for
+the ects and fun of it :)
 
 TODO
 ----
