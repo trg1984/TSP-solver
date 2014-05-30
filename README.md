@@ -20,7 +20,7 @@ Usage
 Load one of the TSPLib TSP files to your local hard drive. The exercise
 project was required to work only with [pcb442.tsp](http://islab.soe.uoguelph.ca/sareibi/TEACHING_dr/ENG6140_html_dr/outline_W2003/docs/ASSIGN_dr/pcb442.tsp) and [fi10639.tsp](http://biit.cs.ut.ee/~vilo/Algorithmics/TSP/fi10639.tsp), but
 [any TSPLib file](http://www.iwr.uni-heidelberg.de/groups/comopt/software/TSPLIB95/tsp/) that uses EUC_2D, ATT or GEO metric should work (a big
-bunch of these were tested while development).
+bunch of these were tested during the development).
 
 Open index.html with your browser, and load the TSP file by clicking
 the "Browse.." button at the top of the page. Once the file is loaded

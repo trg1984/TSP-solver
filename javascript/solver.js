@@ -214,6 +214,7 @@ TSPSolver.prototype.localSearch = function(method, options) {
 				++iteration;
 			}
 		} break;
+		/* Incomplete.
 		case 'k-opt': { // Solve using k-opt.
 			var failCounter = 0;
 			var k = typeof(options.k) !== 'undefined' ? options.k : 3;
@@ -239,7 +240,6 @@ TSPSolver.prototype.localSearch = function(method, options) {
 					for (var i in items) {
 						if (items.length === 1) return items.slice(0);
 						
-						/* else */
 						var rest = items.slice(0);
 						var picked = rest.splice(i, 1);
 						
@@ -264,7 +264,7 @@ TSPSolver.prototype.localSearch = function(method, options) {
 				} else ++failCounter;
 				++iteration;
 			}
-		} break;
+		} break;*/
 		case 'nn': { // Solve using nearest neighbour.
 			console.log('Nearest neighbour');
 			var distf = this.tspFile.edgeWeight[this.tspFile.edgeWeightType];
