@@ -44,14 +44,6 @@ using the same "Browse.." dialog.
 
 [Live demo](http://users.utu.fi/rolind/indalg/)
 
-Performance of different local search algorithms
-------------------------------------------------
-
-All of the search algorithms are randomized where possible to ensure that the implementations
-are less likely to fall into the same local optimum. The optimal tour lengths for the test
-tours pcb442.tsp and fi10639.tsp are 50778 and 520527, respectively. Double tree is guaranteed
-to get within twice of this.
-
 Licence
 -------
 

@@ -167,7 +167,7 @@ TSPSolver.prototype.minimalSpanningTree = function() {
 		}
 	} while (dists.length > 0);
 	
-	this.config.MinimalSpanningTree = lines;
+	this.config.minimalSpanningTree = lines;
 	return lines;
 }
 
